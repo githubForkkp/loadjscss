@@ -23,10 +23,13 @@ function genQueryStr() {
   itemIds = new Array();
   var aRegx = /^http:\/\/(detail|item)\.(tmall|taobao)\.com\/item\.htm\?.*$/i;
   var links = document.querySelectorAll("a");
+  itemLinks = [];
 
   for (var i = 0; i < links.length; i++) {
     var aObj = links[i];
     if ($(aObj).attr("href") && aRegx.test($(aObj).attr("href")) && $(aObj).find("img") && $(aObj).find("img").length > 0) {
+
+      itemLinks.push(links[i]);
 	  var paramStr = $(aObj).attr("href").split("?");
 	  if (paramStr.length == 2) {
 	    var item = new Object();
@@ -85,33 +88,50 @@ function getValue(object, key) {
 	return "";
 }
 
+//检查链接
 function checkUrl(){
+	var msg = "此处链接有问题,请检查！"
 	var links = document.querySelectorAll("a");
-	var aReg = /^http:\/\/(detail|item)\.(tmall|taobao)\.com\/item\.htm\?.*$/i;
 	//匹配重复
-	var regx0 = /^(http){2,}/;
+	var regx0 = /(http|http:\/\/){2,}/;
 	//匹配缺少
-	var regx1 = /(http)[:\/\/]{1}/;
-	for (var i = 0;i <= links.length;i++) {
+	var regx1 = /(http){1}/;
+	for (var i = 0;i <= links.length-1;i++) {
 		var li = $(links[i]).attr("href");
+		
 		if (regx0.test(li)) {
-			setTips(links[i]);
+			setTips(links[i],msg);
 		}
 		else if(!regx1.test(li)){
-			setTips(links[i]);
+			if(/^#/.test(li)||/^(javascript)/.test(li)){
+				continue;
+			}
+			setTips(links[i],msg);
 		}
 	}
 }
 
+//检查重复id
+function checkId(){
+	genQueryStr();
+	var items=itemIds.sort();
+ 	for(var i in itemIds){  
+ 		if (items[i] == items[i+1]){
+  			setTips(itemLinks[i],"这里商品id重复,请检查！");
+ 		}  
+  
+	}  
+}
+
 //气泡
-function setTips(node){
+function setTips(node,msg){
     $(node).qtip({
-               content:"此处链接有问题：" + $(node).attr("href"), // Set the tooltip content to the current corner
+                content: msg + $(node).attr("href"),
                 show: {
-                  when: false, // Don't specify a show event
+                  when: false, 
                   ready: true
                },
-               hide: {when: 'dblclick', fixed: true }, // Don't specify a hide event
+               hide: {when: 'dblclick', fixed: true }, 
                style: {
                   border: {
                      width: 5,
@@ -119,8 +139,8 @@ function setTips(node){
                   },
                   padding: 10, 
                   textAlign: 'center',
-                  tip: true, // Give it a speech bubble tip with automatic corner detection
-                  name: 'blue'// Style it according to the preset 'cream' style
+                  tip: true, 
+                  name: 'blue'
                }
             });
 
@@ -128,7 +148,14 @@ function setTips(node){
 
 chrome.extension.sendMessage({greeting: "hello"}, function(response) {
   if (response.switchStatus == "ON") {
-    fetchItemData(genItemHtml);
-    //checkUrl();
+    //fetchItemData(genItemHtml);
+    console.info(response)
+    if(response.checkUrlStatus == "true"){
+    	checkUrl();
+    }
+    else if(response.checkIdStatus == "true"){
+    	checkId();
+    }
+   
   }
 });
