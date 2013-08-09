@@ -24,7 +24,7 @@
 			"http://yushou.tmall.com/*"
 		],
 		"js": [
-			"jquery","jquery-min.js", "json2.js", "content_script.js","loadJS.js"
+			"jquery.js","jquery-min.js", "json2.js", "content_script.js","loadJS.js"
 		]
 	}],
 	"background": {
