@@ -1,0 +1,33 @@
+﻿{
+	"name": "商品详情插件",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "商品详情插件",
+	"icons": {
+		"32": "icon.png",
+		"48": "icon.png",
+		"64": "icon.png",
+		"128": "icon.png"
+	},
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+	"permissions": [
+		"tabs", "http://bigblue.tmall.net:8088/*",
+		"http://jingmu:8080/*", "http://campaign.admin.taobao.org/campaign/tools/*","http://ok.etao.com/*"
+	],
+	"content_scripts": [{
+		"matches": [
+			"http://*.tmall.com/go/act/*",
+			"http://*.taobao.com/go/act/*",
+			"http://yushou.tmall.com/*"
+		],
+		"js": [
+			"jquery","jquery-min.js", "json2.js", "content_script.js","loadJS.js"
+		]
+	}],
+	"background": {
+		"page": "background.html"
+	}
+}
