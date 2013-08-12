@@ -1,7 +1,7 @@
 ﻿{
 	"name": "商品详情插件",
-	"version": "1.0",
-	"manifest_version": 2,
+	"version": "2.0",
+	"manifest_version": 3,
 	"description": "商品详情插件",
 	"icons": {
 		"32": "icon.png",
@@ -21,8 +21,7 @@
 		"matches": [
 			"http://*.tmall.com/go/act/*",
 			"http://*.taobao.com/go/act/*",
-			"http://yushou.tmall.com/*",
-			"http://3c.tmall.com/go/chn/3c/2013/index.php"
+			"http://yushou.tmall.com/*"
 		],
 		"js": [
 			"jquery.js","jquery-1.3.2.min.js","json2.js", "content_script.js","jquery.qtip-1.0.0-rc3.min.js"
