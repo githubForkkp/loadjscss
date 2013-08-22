@@ -1,0 +1,3 @@
+content	switchAssetsDir chrome/content/
+
+overlay chrome://browser/content/browser.xul chrome://switchAssetsDir/content/firefoxOverlay.xul

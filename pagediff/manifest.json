@@ -1,0 +1,30 @@
+﻿{
+	"name": "页面对比插件",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "页面对比插件",
+	"icons": {
+		"32": "icon.png",
+		"48": "icon.png",
+		"64": "icon.png",
+		"128": "icon.png"
+	},
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+	"permissions": [
+		"tabs", "http://*.tmall.com/*"
+	],
+	"content_scripts": [{
+		"matches": [
+			"http://*.tmall.com/*"
+		],
+		"js": [
+			"jquery.js","jquery-1.3.2.min.js","json2.js", "content_script.js","jquery.qtip-1.0.0-rc3.min.js"
+		]
+	}],
+	"background": {
+		"page": "background.html"
+	}
+}

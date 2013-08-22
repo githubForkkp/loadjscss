@@ -1,0 +1,17 @@
+.bmSearch_input {
+    color: #999999;
+    font-family: 'SimSun';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    height: 25px;
+    left: 912px;
+    text-align: left;
+    text-decoration: none;
+    top: 157px;
+    width: 262px;
+}
+p,
+label{
+    font-size: 12px;
+}
