@@ -1,7 +1,7 @@
 ﻿{
 	"name": "商品详情插件",
 	"version": "2.0",
-	"manifest_version": 3,
+	"manifest_version": 2,
 	"description": "商品详情插件",
 	"icons": {
 		"32": "icon.png",
@@ -15,7 +15,7 @@
 	},
 	"permissions": [
 		"tabs", "http://bigblue.tmall.net:8088/*",
-		"http://jingmu:8080/*", "http://campaign.admin.taobao.org/campaign/tools/*","http://ok.etao.com/*"
+		"http://jingmu:8080/*", "http://campaign.admin.taobao.org/campaign/tools/*"
 	],
 	"content_scripts": [{
 		"matches": [
