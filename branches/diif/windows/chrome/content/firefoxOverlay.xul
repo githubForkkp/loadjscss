@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://switchAssetsDir/content/browserOverlay.css" type="text/css"?> 
+
+<overlay id="switchAssetsDir" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script type="application/x-javascript" src="chrome://switchAssetsDir/content/browserOverlay.js" />
+
+    <statusbar id="status-bar">
+        <menupopup id="showdir_popup" />
+        <statusbarpanel id="assetsDir" label="Assets指向" />
+    </statusbar>
+</overlay>

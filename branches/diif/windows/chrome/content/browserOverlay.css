@@ -1,0 +1,9 @@
+//
+#showdir_popup {
+
+}
+
+#showdir_popup .dir-item {
+    font-size: 12px;
+    font-family: "Monaco","Inconsolata","Andale Mono","Lucida Console","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+}

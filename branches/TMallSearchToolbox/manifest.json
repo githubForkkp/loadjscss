@@ -1,0 +1,16 @@
+﻿{
+	"manifest_version": 2,
+	"name": "TmallSearchToolBox",
+	"version": "1.1",
+	"description": "TmallSearch工具箱",
+	"content_scripts": [
+		{
+			"matches": ["http://list.tmall.com/*","http://daily.list.tmall.net/*"],
+			"js": ["TMallSearchToolBox.js"]
+
+		}
+	],
+	"permissions": [
+		"tabs", "http://list.tmall.com/*","http://daily.list.tmall.net/*"
+	]
+}

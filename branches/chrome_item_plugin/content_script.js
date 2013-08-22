@@ -52,7 +52,7 @@ itemStatus = {
 var items = new Array();
 function genQueryStr() {
   itemIds = new Array();
-  var aRegx = /^http:\/\/(detail|item)\.(tmall|taobao)\.com\/|\/\/item\.htm\?.*$/i;
+  var aRegx = /^http:\/\/(detail|item)\.(tmall|taobao)\.com|hk\/|\/\/item|hk\/item\.htm\?.*$/i;
   var links = document.querySelectorAll("a");
   itemLinks = [];
 
@@ -87,30 +87,30 @@ function genQueryStr() {
 }
 
 function genItemHtml(data) {
-  if (data.success) {
+  if (data && data.success) {
     var result = data.value;
     for (var i = 0; i < items.length; i++) {
 	  var item = items[i];
 	  var info = getValue(result, item.id);
 	  if (info != "") {
-	    $(item.obj).parent().css("position", "relative");
+	  $(item.obj).parent().css("position", "relative");
 		$(item.obj).parent().css("overflow", "hidden");
 		var html = "<div style='position:absolute;top:0;left:0;z-index:999;background:#999;opacity:0.8;width:100%;font-size:12px;line-height:150%;'>"
 		  + "<p style='padding:0 5px;height:auto;' title='" + getValue(info, "title") + "'>名称：" + getValue(info, "title") + "</p>"
 		  + "<p style='padding:0 5px;height:auto;'>原价：" + getValue(info, "defaultItemPrice") + "元</p>"
-		  + "<p style='padding:0 5px;height:auto;'>专柜价：" + ((getValue(info, "tagPrice") != "")? getValue(info, "tagPrice") + "元" : "无") + "</p>"
-		  + "<p style='padding:0 5px;height:auto;'>状态：" + ((arrstatus[i] == "0" || arrstatus[i] == "1") ?"正常":
+		  + "<p style='padding:0 5px;height:auto;'>专柜价：" + ((getValue(info, "tagPrice") != null)? getValue(info, "tagPrice") + "元" : "无") + "</p>"
+		  + "<p style='padding:0 5px;height:auto;'>状态：" + ((arrstatus[i] == "0" || arrstatus[i] == "1") ?("正常(库存" + parseInt(getValue(info, "icTotalQuantity")) + "件)"):
       "<b style='color:red;'>"+itemStatus[arrstatus[i]]+"</b>" )+"</p>" + "</div>";
 		$(item.obj).before(html);
 	  }
 	}
   } else {
-    console.log("不是的");
+    console.log("请求接口异常！");
   }
 }
 
 function getItems(data){
-  if(data.totalStatus == "success"){
+  if(data && data.totalStatus == "success"){
     Results = data.itemQueryResults;
     for (var i = 0; i < Results.length; i++) {
         if(Results[i].statusMsg == "查询成功"){
@@ -165,12 +165,12 @@ function checkId(){
   
  	for(var i in itemIds){
     for(var j in itemIds) {
-      if(i == j){
+      if(i >= j){
         continue;
       }
  		   if (items[i].id == items[j].id){
-  			   setTips(itemLinks[i],"此商品id有重复,请检查！");
- 		     }  
+  			  setTips(itemLinks[i],"此商品id有重复,请检查！");
+ 		   }
   }
 	}  
 }
@@ -180,7 +180,7 @@ function setTips(node,msg){
     $(node).qtip({
                 content: msg + $(node).attr('href'),
                 show: {
-                  when: false, 
+                  when: false,
                   ready: true
                },
                hide: {when: 'dblclick', fixed: true }, 
