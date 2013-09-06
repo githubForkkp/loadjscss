@@ -1,5 +1,5 @@
 ﻿var switchStatus = "OFF";
-var preHost = "";
+var preHost = "请输入除参数外的url：如http://detail.tmall.com/item.htm";
 
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
