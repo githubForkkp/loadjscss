@@ -127,7 +127,7 @@ for(var i = 0;i <= nodeList_first.length - 1;i++){
         && checkPosition(nodeList_first[i],nodeList_second[j]) 
         && nodeList_first[i].tagName == nodeList_second[j].tagName)
       {
-
+        
         // 节点都有子节点
         if(nodeList_first[i].childElementCount>0 && nodeList_second[j].childElementCount>0){
           // 节点下有text文本，要比较
@@ -184,6 +184,7 @@ for(var i = 0;i <= nodeList_first.length - 1;i++){
         // 该节点都没有子节点
         else if (nodeList_first[i].childElementCount + nodeList_second[j].childElementCount ==0 
           ) {
+
           if(nodeList_first[i].outerHTML !== nodeList_second[j].outerHTML){
             console.info("purple",nodeList_first[i],nodeList_second[j]);
             setTips(nodeList_first[i],nodeList_second[j])
@@ -226,12 +227,28 @@ for(var i = 0;i <= nodeList_first.length - 1;i++){
   setZindex();
 }
 
-      /* 
-      *如果直接新开窗口可以解决初始化渲染的问题，但新开窗口体验不好。
-      */
-      
-        //win2 = win.open(actual_host);
-    
+function openDom2(host){
+  var  actual_host = host + window.location.search;
+  var  win2 = window.open(actual_host);
+  var swith = true;
+  document.onreadystatechange = function(){
+  if (document.readyState == "complete") {
+    win2.scrollTo(0,1000)
+    $(window).scroll(function(){
+      nWindowHight = $(window).height();
+      nScrollTop = $(document).scrollTop();
+      if(nWindowHight + nScrollTop > 2000){
+        if(swith){
+          swith = false;
+          var dom = win2.document
+          runDiff(dom);
+      }
+    }
+  })
+  }}
+
+
+}
         
      
 function setDom2(host){
@@ -242,11 +259,11 @@ function setDom2(host){
   var swith = true;
   document.onreadystatechange = function(){
   if (document.readyState == "complete") {
-    window.document.getElementById('test').contentWindow.scrollTo(0,2000)
+    window.document.getElementById('test').contentWindow.scrollTo(0,1000)
     $(window).scroll(function(){
       nWindowHight = $(window).height();
       nScrollTop = $(document).scrollTop();
-      if(nWindowHight + nScrollTop > 2800){
+      if(nWindowHight + nScrollTop > 2000){
         if(swith){
           swith = false;
           var dom = window.document.getElementById('test').contentWindow.document
@@ -274,7 +291,7 @@ function addIframe(url) {
 
 // 获取节点的坐标
 function checkPosition(node1,node2){
-  if(node1.offsetLeft == node2.offsetLeft && node1.offsetTop == node2.offsetTop)
+  if(node1.offsetLeft == node2.offsetLeft || node1.offsetTop == node2.offsetTop)
   {
     return true;
   }else{
@@ -289,11 +306,10 @@ function setTitle(node){
 // 气泡样式
 function setTips(node1,node2){
     $(node1).qtip({
-              prerender: true,
                content: "此处有不同，请检查！对比环境为：" + escape(node2.outerHTML), 
                 show: {
-                 // when: false, 
-                  ready: true
+                 when: false, 
+                 ready: true
                },
                hide: {when: 'dblclick', fixed: true },
                position: {
@@ -356,6 +372,16 @@ function escape(s) {
 }
 chrome.extension.sendMessage({greeting: "hello"}, function(response) {
   if (response.switchStatus == "ON") {
-    setDom2(response.preHost);
+    if(document.domain !="tmall.com"){
+      //改变domain
+      document.domain ="tmall.com"
+      var href = window.location.href
+      var index1 = href.indexOf("?")
+      // var index2 = href.indexOf(".tmall.com")
+      if(response.preHost == href.substr(0,index1)) return;
+      openDom2(response.preHost)
+    }else {
+      setDom2(response.preHost)
+    }
   }
 });

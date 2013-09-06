@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function initStatus() {
 	if (window.localStorage) {
 		localStorage.switchStatus = localStorage.switchStatus ? localStorage.switchStatus : "OFF";
-		localStorage.preHost = localStorage.preHost != "" ? localStorage.preHost : "请输入除参数外的url：如http://detail.tmall.com/item.htm";
+		localStorage.preHost = localStorage.preHost != undefined && localStorage.preHost != "" ? localStorage.preHost : "请输入除参数外的url：如http://detail.tmall.com/item.htm";
 		$("#switch").attr("alt", localStorage.switchStatus);
 		$("#switch").attr("src", "./"+localStorage.switchStatus+".jpg");
 		$("#prePage").val(localStorage.preHost)
