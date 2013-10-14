@@ -1,0 +1,63 @@
+﻿{
+	"name": "大促活动页面工具",
+	"version": "2.1.1",
+	"update_url": "http://campaign.admin.taobao.org/assets/tools/plugin/updates.xml",
+	"manifest_version": 2,
+	"description": "大促活动页面工具",
+	"icons": {
+		"32": "image/icon.png",
+		"48": "image/icon.png",
+		"64": "image/icon.png",
+		"128": "image/icon.png"
+	},
+	"browser_action": {
+		"default_icon": "image/icon.png",
+		"default_popup": "popup.html"
+	},
+	"permissions": [
+		"tabs", "http://bigblue.tmall.net:8088/*",
+		"http://jingmu:8080/*", "http://campaign.admin.taobao.org/*"
+	],
+	"content_scripts": [{
+		"matches": [
+            "http://*.tmall.com/*",
+            "http://*.taobao.com/*",
+
+			"http://*.tmall.com/go/act/*",
+			"http://*.taobao.com/go/act/*",
+			"http://yushou.tmall.com/*",
+            "http://*.3c.tmall.com/*",
+            "http://tms.taobao.com/*",
+            "http://*.m.tmall.com/*",
+            "http://vip.tmall.com/*"
+        ],
+		"js": [
+			"js/common/jquery-1.9.1.js",
+            "js/common/json2.js",
+            "js/common/jquery.qtip.min.js",
+            "js/common/jquery.ui.core.min.js",
+            "js/common/jquery.ui.widget.min.js",
+            "js/common/jquery.ui.tabs.min.js",
+            "js/common/jquery.ui.mouse.min.js",
+            "js/common/jquery.ui.draggable.min.js",
+            "js/common/util.js",
+            "content_script.js",
+            "js/result_panel.js",
+
+            "js/params.js",
+            "js/hotcoupon_check.js",
+            "js/resource_check.js",
+            "js/id_img_url_check.js",
+            "js/item_detail_check.js",
+            "js/title_check.js",
+
+            "js/config.js"
+		],
+        "css": [
+
+        ]
+	}],
+	"background": {
+		"page": "background.html"
+	}
+}

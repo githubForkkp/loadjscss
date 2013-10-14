@@ -1,0 +1,75 @@
+body {
+    font-size: 12px;
+    _min-height: 200px;
+}
+ul, li {
+    list-style: none;
+}
+.button {
+    display: inline-block;
+    height: 38px;
+    padding: 0 15px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 18px;
+    font-family: "Heiti SC","\5fae\8f6f\96c5\9ed1","\9ed1\4f53";
+    color: white;
+    border: 1px solid #0b162e;
+    border-radius: 3px;
+    background-color: #446BBD;
+    background-image: url(../image/button_x.png);
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    cursor: pointer;
+}
+.btn-green {
+    border-color: #060;
+    background-color: #62B036;
+    background-position: 0 -228px;
+}
+button.button {
+    height: 40px;
+    padding: 0 10px;
+    line-height: normal;
+    width: 100px;
+}
+.button:hover {
+    text-decoration: none;
+    background-position: 0 -38px;
+}
+.btn-green:hover {
+    background-position: 0 -266px;
+}
+.btn-disabled, .btn-disabled:hover, .btn-disabled:active {
+    border-color: #C7C7C7;
+    background-color: #EEF0F0;
+    background-position: 0 100px;
+    color: #A1A1A1;
+}
+#btn_OFF:hover {
+    background-position: 0 -190px;
+}
+#popup {
+    _min-height: 200px;
+    min-width: 150px;
+}
+#popup ul {
+    padding-left: 0;
+}
+#popup .switch {
+    height: auto;
+}
+#popup .switch label {
+    font-size: 14px;
+    font-weight: bold;
+}
+#popup .check-items li {
+    margin: 5px 0;
+    font-size: 14px;
+}
+#popup .check-items li label {
+    margin-left: 5px;
+}
+#allCheck label {
+    font-weight: bold;
+}
